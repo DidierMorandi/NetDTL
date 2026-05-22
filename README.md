@@ -1,3 +1,6 @@
+<div align="center">
+  <img src="logo.png" alt="NetDTL" width="200">
+</div>
 # NetDTL v1.0-1
 
 Outil de découverte et d'inventaire réseau — Secours Catholique Bourges  
