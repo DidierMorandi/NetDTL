@@ -2,7 +2,7 @@
 
 Outil léger de gestion de parc réseau, sans agent à déployer sur les machines cibles.
 Développé en PHP/MySQL, il fonctionne sur XAMPP (Windows) ou tout environnement LAMP.
-Version 1.0-0 du 23 mai 2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
+Version 1.0-0 du 23 mai 2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com - Former DECcie (PRSTSC::DTL 1983-1986), VMS Expert and DCL Guru. NetDTL was built with a little help from my Friends: Claude and my cat Gépété. :-)
 
 ## Fonctionnalités
 
