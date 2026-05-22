@@ -1,3 +1,6 @@
+<div align="center">
+  <img src="logo.png" alt="NetDTL" width="200">
+</div>
 # NetDTL
 
 Outil léger de gestion de parc réseau, sans agent à déployer sur les machines cibles.
