@@ -7,17 +7,13 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'netdtl');
 define('DB_USER', 'root');
-define('DB_PASS', '');          // ← mot de passe MySQL
+define('DB_PASS', '');          // ← mot de passe MySQL XAMPP
 
 define('AUTH_USER', 'admin');
-define('AUTH_PASS', 'changeme');   // ← à modifier impérativement
+define('AUTH_PASS', 'admin');   // ← modifier avant déploiement
 
-// Chemin vers nmap
-// Windows : '"C:\\Program Files (x86)\\Nmap\\nmap.exe"'
-// Linux/macOS : 'nmap'
-define('NMAP_PATH', 'nmap');
-
-define('DEFAULT_NETWORK', '192.168.1.0/24');
+define('NMAP_PATH', '"C:\\Program Files (x86)\\Nmap\\nmap.exe"');
+define('DEFAULT_NETWORK', '172.17.7.0/24');
 define('APP_VERSION', '3.0');
 
 // ─── Authentification HTTP Basic ────────────────────────────

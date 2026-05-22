@@ -161,7 +161,7 @@ function startScan() {
     document.getElementById('stat-found').textContent = '0';
     document.getElementById('stat-duration').textContent = '…';
     Object.keys(hostsMap).forEach(k => delete hostsMap[k]);
-    setStatus('info', `Scan de <strong>${esc(network)}</strong> en cours…`);
+    setStatus('info', `Scan de <strong>${esc(network)}</strong> en cours… (peut prendre un certain temps)`);
 
     const doNbstat = document.getElementById('opt-nbstat').checked ? '1' : '0';
     const doWmi    = document.getElementById('opt-wmi').checked    ? '1' : '0';

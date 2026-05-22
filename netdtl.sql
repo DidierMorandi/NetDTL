@@ -1,7 +1,6 @@
 -- ============================================================
---  NetDTL — Création de la base de données
---  À exécuter dans phpMyAdmin ou via MySQL CLI :
---    mysql -u root -p < netdtl.sql
+--  NetDTL v1.0-1 — Création de la base de données
+--  À exécuter dans phpMyAdmin avant la première utilisation
 -- ============================================================
 
 CREATE DATABASE IF NOT EXISTS netdtl

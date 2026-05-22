@@ -1,99 +1,49 @@
-<p align="center">
-  <img src="logo.png" alt="NetDTL logo" width="220">
-</p>
+# NetDTL v1.0-1
 
-<h1 align="center">NetDTL</h1>
+Outil de découverte et d'inventaire réseau — Secours Catholique Bourges  
+Version 1.0-1 du 23 mai 2026
 
-<p align="center">
-  Lightweight agentless network discovery and infrastructure inventory
-</p>
+## Prérequis
 
-# NetDTL
-
-Q&D lightweight network asset management tool, with no agent to deploy on target machines.
-Built with PHP/MySQL, runs on XAMPP (Windows) or any LAMP environment.
-Version 1.0-1 23-May-2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
-
-## Features
-
-- Network discovery by CIDR range via Nmap (real-time streaming, Server-Sent Events)
-- Machine inventory with status history, ping, open ports, MAC address, vendor
-- NetBIOS identification and WMI descriptions when available (Windows machines)
-- Patch panel management (port-to-machine mapping)
-- Network diagnostics: ping, traceroute, DNS lookup, port scan
-- Editable machine profile (OS, switch port, patch port, comment)
-- CSV export of inventory
-- Dark web interface with no external JavaScript dependencies
-- Built-in HTTP Basic authentication
-
-## Requirements
-
-- PHP 8.x with extensions `pdo_mysql`, `mbstring`
-- MySQL / MariaDB
-- [Nmap](https://nmap.org/download.html) installed and accessible
-- XAMPP (Windows) or equivalent LAMP stack
+- XAMPP (Apache + MySQL + PHP 8.x)
+- Nmap installé : https://nmap.org/download.html
+- PHP extension : pdo_mysql
 
 ## Installation
 
-**1. Clone the repository**
-```
-git clone https://github.com/DidierMorandi/netdtl.git
-cd netdtl
-```
+1. Copier le dossier `netdtl/` dans `C:\xampp\htdocs\`
+2. Copier `db.example.php` en `db.php` et adapter les valeurs
+3. Importer `netdtl.sql` dans phpMyAdmin
+4. Placer `logo.png` dans le dossier `netdtl/`
+5. Accéder à `http://localhost/netdtl/`
 
-**2. Copy and configure**
-```
-cp db.example.php db.php
-```
-Edit `db.php` and fill in:
-- MySQL credentials (`DB_USER`, `DB_PASS`)
-- Interface login credentials (`AUTH_USER`, `AUTH_PASS`)
-- Path to Nmap (`NMAP_PATH`)
-- Default network range (`DEFAULT_NETWORK`)
+## Configuration (db.php)
 
-**3. Create the database**
+| Paramètre | Description |
+|---|---|
+| DB_HOST | Hôte MySQL (localhost) |
+| DB_NAME | Nom de la base (netdtl) |
+| DB_USER | Utilisateur MySQL (root) |
+| DB_PASS | Mot de passe MySQL |
+| AUTH_USER | Login HTTP Basic |
+| AUTH_PASS | Mot de passe HTTP Basic |
+| NMAP_PATH | Chemin vers nmap.exe |
+| DEFAULT_NETWORK | Réseau à scanner par défaut |
 
-Import `netdtl.sql` via phpMyAdmin or MySQL CLI:
-```
-mysql -u root -p < netdtl.sql
-```
+## Fichiers
 
-Tables created: `machines`, `scan_history`, `patch_panel`, `patch_machines`, `diag_history`.
-
-Alternatively, the database is also initialized automatically on first run via `initDB()`.
-
-**4. Access the interface**
-
-Place the files in XAMPP's `htdocs` folder (or your vhost root) and open:
-```
-http://localhost/netdtl/
-```
-
-## File structure
-
-```
-netdtl/
-├── db.example.php      # Sample configuration (copy to db.php)
-├── db.php              # Actual configuration (not versioned)
-├── index.php           # Dashboard
-├── inventory.php       # Machine inventory
-├── discovery.php       # Network discovery
-├── machine.php         # Machine profile
-├── menu.php            # Diagnostic tools
-├── patch_panel.php     # Patch panel management
-├── scan_stream.php     # SSE endpoint for Nmap scan
-├── sidebar.php         # Sidebar navigation component
-├── topbar.php          # Top bar component
-├── style.php           # Shared CSS
-└── netdtl.sql         # Database schema
-```
-
-## Security
-
-- Do not expose NetDTL on the internet without additional protection (VPN, TLS reverse proxy).
-- Change `AUTH_USER` and `AUTH_PASS` in `db.php` before any deployment.
-- Nmap requires elevated privileges for OS detection (`-O`). Run XAMPP as administrator if you use this option.
-
-## License
-
-MIT — see `LICENSE` file.
+| Fichier | Rôle |
+|---|---|
+| db.php | Configuration et connexion BDD |
+| db.example.php | Modèle de configuration |
+| index.php | Tableau de bord |
+| inventory.php | Inventaire des machines |
+| machine.php | Fiche détaillée par machine |
+| discovery.php | Découverte réseau (SSE) |
+| scan_stream.php | Endpoint streaming nmap |
+| patch.php | Panneau de brassage |
+| menu.php | Outils de diagnostic |
+| sidebar.php | Navigation latérale |
+| topbar.php | Barre supérieure |
+| style.php | CSS partagé |
+| netdtl.sql | Script SQL de création des tables |

@@ -12,9 +12,9 @@
     --bg3:    #1c2230;
     --border: rgba(255,255,255,0.08);
     --border2:rgba(255,255,255,0.14);
-    --txt:    #c9d1d9;
-    --txt2:   #8b949e;
-    --txt3:   #484f58;
+    --txt:    #ffffff;
+    --txt2:   #cccccc;
+    --txt3:   #888888;
     --accent: #3fb950;
     --accent2:#58a6ff;
     --warn:   #d29922;

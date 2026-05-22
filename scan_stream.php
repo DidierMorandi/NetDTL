@@ -26,10 +26,12 @@ set_time_limit(600);
 if (ob_get_level()) ob_end_flush();
 
 function getWmiDescription(string $ip): ?string {
-    // Récupère la description Windows via PowerShell/WMI
+    // Récupère la description Windows via PowerShell/WMI (timeout 3s)
     $cmd = 'powershell -NonInteractive -Command "'
-        . '(Get-WmiObject -ComputerName '' . $ip . '' -Class Win32_OperatingSystem'
-        . ' -ErrorAction SilentlyContinue).Description'
+        . '$job = Start-Job { (Get-WmiObject -ComputerName \'' . $ip . '\' -Class Win32_OperatingSystem -ErrorAction SilentlyContinue).Description };'
+        . 'Wait-Job $job -Timeout 3 | Out-Null;'
+        . 'Receive-Job $job;'
+        . 'Remove-Job $job -Force'
         . '"';
     $result = shell_exec($cmd . ' 2>&1');
     if (!$result) return null;
@@ -54,7 +56,7 @@ function sse(array $data): void {
 // ─── Requête nbstat sur une IP ──────────────────────────────
 // Retourne ['name' => 'PC-XXX', 'group' => 'WORKGROUP', 'user' => 'Jean']
 function getNbstat(string $ip): array {
-    $lines = runCommand(NMAP_PATH . ' -sU -p 137 --script nbstat ' . escapeshellarg($ip));
+    $lines = runCommand(NMAP_PATH . ' -sU -p 137 --script nbstat --host-timeout 3s ' . escapeshellarg($ip));
     $result = ['name' => null, 'group' => null, 'user' => null, 'type' => null];
 
     foreach ($lines as $line) {
@@ -248,7 +250,7 @@ function saveMachineStream(PDO $pdo, array $host, ?string $mac, ?string $os, ?in
 
     $openPorts = null;
     if ($doports) {
-        $portLines = runCommand(NMAP_PATH . ' -p 22,80,443,3389,8080,445,21,23,25,3306,5900 --open -T4 ' . escapeshellarg($host['ip']));
+        $portLines = runCommand(NMAP_PATH . ' -p 22,80,443,3389,8080,445,21,23,25,3306,5900 --open -T4 --host-timeout 10s ' . escapeshellarg($host['ip']));
         $ports = [];
         foreach ($portLines as $l) {
             if (preg_match('/^(\d+)\/(tcp|udp)\s+open\s+(\S+)/i', $l, $pm)) {
