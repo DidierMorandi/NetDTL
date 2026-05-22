@@ -12,7 +12,7 @@
 
 Q&D lightweight network asset management tool, with no agent to deploy on target machines.
 Built with PHP/MySQL, runs on XAMPP (Windows) or any LAMP environment.
-Version 1.0-0 23-May-2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
+Version 1.0-1 23-May-2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
 
 ## Features
 
@@ -37,7 +37,7 @@ Version 1.0-0 23-May-2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
 
 **1. Clone the repository**
 ```
-git clone https://github.com/your-username/netdtl.git
+git clone https://github.com/DidierMorandi/netdtl.git
 cd netdtl
 ```
 
