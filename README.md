@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="assets/logo.png" alt="NetDTL logo" width="220">
+</p>
+
+<h1 align="center">NetDTL</h1>
+
+<p align="center">
+  Lightweight agentless network discovery and infrastructure inventory
+</p>
+
 # NetDTL
 
 Q&D lightweight network asset management tool, with no agent to deploy on target machines.
