@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="NetDTL logo" width="220">
+  <img src="logo.png" alt="NetDTL logo" width="220">
 </p>
 
 <h1 align="center">NetDTL</h1>
