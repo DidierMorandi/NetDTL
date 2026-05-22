@@ -1,0 +1,11 @@
+# Configuration locale — ne jamais versionner
+db.php
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
