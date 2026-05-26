@@ -3,7 +3,7 @@
 </div>
 # NetDTL v1.0-1
 
-Outil de découverte et d'inventaire réseau — Secours Catholique Bourges  
+Outil de découverte et d'inventaire réseau  
 Version 1.0-1 du 23 mai 2026
 
 ## Prérequis
