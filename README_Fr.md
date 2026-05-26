@@ -53,7 +53,7 @@ mysql -u root -p < netdtl.sql
 
 Les tables créées sont : `machines`, `scan_history`, `patch_panel`, `patch_machines`, `diag_history`.
 
-Alternatively, la base est aussi initialisée automatiquement au premier lancement via `initDB()`.
+Alternativement, la base est aussi initialisée automatiquement au premier lancement via `initDB()`.
 
 **4. Accéder à l'interface**
 
