@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetDTL &mdash; Manuel de référence</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --border: #252b3b;
+    --accent: #58a6ff;
+    --accent-dim: #1a3a5c;
+    --text: #c9d1e0;
+    --text-muted: #5a6580;
+    --text-heading: #e8edf5;
+    --code-bg: #12161f;
+    --code-border: #1e2535;
+    --sidebar-w: 240px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 28px 0 40px;
+    z-index: 100;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  nav .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  nav .logo span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  nav a {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 5px 20px;
+    transition: color 0.15s, background 0.15s;
+    font-family: 'IBM Plex Mono', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  nav a:hover { color: var(--accent); background: rgba(88,166,255,0.06); }
+  nav a.active { color: var(--accent); }
+
+  nav a.nav-section-link {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 14px 20px 4px;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  nav a.nav-section-link:hover { opacity: 1; background: none; }
+
+  main {
+    margin-left: var(--sidebar-w);
+    padding: 56px 64px 100px;
+    max-width: calc(var(--sidebar-w) + 860px);
+    width: 100%;
+  }
+
+  .main-logo {
+    display: block;
+    margin: 0 auto 36px;
+    height: 52px;
+    width: auto;
+    image-rendering: pixelated;
+  }
+
+  .doc-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .doc-header h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-heading);
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .doc-header h1 .accent { color: var(--accent); }
+
+  .meta-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    color: var(--text-muted);
+  }
+
+  .pill .k { color: var(--accent); margin-right: 4px; }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 52px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin: 32px 0 10px;
+  }
+
+  p { margin-bottom: 14px; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: #93c5fd;
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 14px 0 20px;
+    overflow-x: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #93c5fd;
+  }
+
+  pre code { background: none; border: none; padding: 0; font-size: 12px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13px;
+  }
+
+  thead tr { background: var(--code-bg); border-bottom: 1px solid var(--border); }
+
+  th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+
+  td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: rgba(88,166,255,0.03); }
+
+  ul {
+    list-style: none;
+    margin: 10px 0 16px;
+    padding-left: 0;
+  }
+
+  ul li {
+    padding: 3px 0 3px 20px;
+    position: relative;
+    font-size: 13px;
+  }
+
+  ul li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .callout {
+    background: rgba(88,166,255,0.05);
+    border: 1px solid var(--accent-dim);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  .callout strong { color: var(--accent); }
+
+  .warn {
+    background: rgba(210,153,34,0.07);
+    border: 1px solid rgba(210,153,34,0.25);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  .warn strong { color: #d29922; }
+
+  .page-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-dim);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .page-block h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--accent);
+  }
+
+  .page-block .file {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .page-block .desc {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .page-block .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    margin-top: 14px;
+  }
+
+  strong { color: var(--text-heading); font-weight: 600; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 800px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 32px 24px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">NetDTL<span>Manuel de référence v3.0</span></div>
+  <a class="nav-section-link" href="#contents">Sommaire</a>
+  <a href="#overview">Présentation</a>
+  <a href="#requirements">Prérequis</a>
+  <a href="#installation">Installation</a>
+  <a href="#configuration">Configuration</a>
+  <a href="#database">Schéma de base de données</a>
+  <a class="nav-section-link" href="#pages">Pages</a>
+  <a href="#page-index">index.php — Tableau de bord</a>
+  <a href="#page-inventory">inventory.php — Inventaire</a>
+  <a href="#page-machine">machine.php — Fiche machine</a>
+  <a href="#page-discovery">discovery.php — Découverte</a>
+  <a href="#page-scan">scan_stream.php — Flux SSE</a>
+  <a href="#page-menu">menu.php — Diagnostics</a>
+  <a href="#page-patch">patch.php — Panneau de brassage</a>
+  <a class="nav-section-link" href="#shared">Composants partagés</a>
+  <a href="#shared-db">db.php</a>
+  <a href="#shared-style">style.php</a>
+  <a href="#shared-topbar">topbar.php</a>
+  <a href="#shared-sidebar">sidebar.php</a>
+  <a class="nav-section-link" href="#other">Other</a>
+  <a href="#security">Sécurité</a>
+  <a href="#limitations">Limitations connues</a>
+</nav>
+
+<main>
+  <img class="main-logo" src="data:image/png;base64,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" alt="NetDTL">
+
+  <div class="doc-header">
+    <h1><span class="accent">NetDTL</span> &mdash; Manuel de référence</h1>
+    <p style="color:var(--text-muted);font-size:13px;margin-top:10px;">Référence complète de l'application web d'inventaire réseau agentless et de diagnostic NetDTL v3.0.</p>
+    <div class="meta-pills">
+      <span class="pill"><span class="k">version</span>3.0</span>
+      <span class="pill"><span class="k">stack</span>PHP 8.x / MySQL / Nmap</span>
+      <span class="pill"><span class="k">licence</span>MIT</span>
+      <span class="pill"><span class="k">auteur</span>Didier DTL Morandi</span>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <h2 id="contents" style="display:none"></h2>
+  <h2 id="overview">Présentation</h2>
+  <p>NetDTL est une application web auto-hébergée pour la découverte réseau agentless et la gestion d'inventaire sur infrastructure Windows. Elle fonctionne sur un stack PHP/MySQL/Nmap (XAMPP ou LAMP) et fournit un scan en temps réel via Server-Sent Events, le profilage des machines, des diagnostics réseau et la gestion du panneau de brassage — le tout via une interface web sombre sans dépendance JavaScript externe.</p>
+
+  <p>L'application est structurée en un ensemble de pages PHP, chacune responsable d'un domaine fonctionnel, partageant une couche de base de données commune (<code>db.php</code>), une feuille de style CSS (<code>style.php</code>) et des partiels de mise en page (<code>topbar.php</code>, <code>sidebar.php</code>).</p>
+
+  <!-- REQUIREMENTS -->
+  <h2 id="requirements">Prérequis</h2>
+  <table>
+    <thead><tr><th>Composant</th><th>Version</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>PHP</td><td>8.x</td><td>Extensions requises : <code>pdo_mysql</code>, <code>mbstring</code></td></tr>
+      <tr><td>MySQL / MariaDB</td><td>toute version récente</td><td>Utilisé via PDO</td></tr>
+      <tr><td>Nmap</td><td>toute version récente</td><td>Doit être accessible depuis le processus PHP ; chemin défini via <code>NMAP_PATH</code></td></tr>
+      <tr><td>XAMPP or LAMP</td><td>—</td><td>Tout environnement serveur PHP+MySQL standard</td></tr>
+      <tr><td>PowerShell</td><td>5.1 / 7+</td><td>Requis pour les descriptions WMI et les requêtes IP/services locaux</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><strong>Note Windows :</strong> lorsque le serveur web tourne sous Windows, Nmap et PowerShell sont invoqués via <code>shell_exec</code>. Le compte du processus PHP doit disposer de privilèges suffisants, et Nmap doit être dans le PATH système ou son chemin complet renseigné dans <code>db.php</code>.</div>
+
+  <!-- INSTALLATION -->
+  <h2 id="installation">Installation</h2>
+  <p>Déployer les fichiers de l'application dans la racine du serveur web (ex. <code>htdocs/netdtl/</code> sous XAMPP, ou un virtual host dédié).</p>
+
+  <h3>1. Créer la base de données</h3>
+  <pre><code>CREATE DATABASE netdtl CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'netdtl'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT ALL PRIVILEGES ON netdtl.* TO 'netdtl'@'localhost';
+FLUSH PRIVILEGES;</code></pre>
+
+  <h3>2. Configurer db.php</h3>
+  <p>Modifier les constantes en haut de <code>db.php</code> pour correspondre à l'environnement. Le schéma de base de données est créé automatiquement au premier démarrage par <code>initDB()</code>.</p>
+
+  <h3>3. Premier démarrage</h3>
+  <p>Ouvrir l'application dans un navigateur. <code>initDB()</code> créera toutes les tables requises si elles n'existent pas. Se connecter avec les identifiants définis dans <code>AUTH_USER</code> / <code>AUTH_PASS</code>.</p>
+
+  <!-- CONFIGURATION -->
+  <h2 id="configuration">Configuration</h2>
+  <p>Toute la configuration se trouve dans <code>db.php</code> sous forme de constantes PHP. Il n'existe pas de fichier de configuration séparé.</p>
+  <table>
+    <thead><tr><th>Constante</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>DB_HOST</td><td>Hôte MySQL, typiquement <code>localhost</code></td></tr>
+      <tr><td>DB_NAME</td><td>Nom de la base de données</td></tr>
+      <tr><td>DB_USER</td><td>Utilisateur de la base de données</td></tr>
+      <tr><td>DB_PASS</td><td>Mot de passe de la base de données</td></tr>
+      <tr><td>AUTH_USER</td><td>Nom d'utilisateur HTTP Basic Auth</td></tr>
+      <tr><td>AUTH_PASS</td><td>Mot de passe HTTP Basic Auth (en clair dans la version actuelle)</td></tr>
+      <tr><td>NMAP_PATH</td><td>Chemin complet vers le binaire Nmap, ex. <code>C:/Program Files (x86)/Nmap/nmap.exe</code></td></tr>
+      <tr><td>DEFAULT_NETWORK</td><td>Plage CIDR pré-remplie affichée sur la page de découverte</td></tr>
+      <tr><td>APP_VERSION</td><td>Chaîne de version affichée dans le pied de la barre latérale</td></tr>
+    </tbody>
+  </table>
+
+  <!-- DATABASE -->
+  <h2 id="database">Schéma de base de données</h2>
+  <p>Les tables sont créées automatiquement par <code>initDB()</code> dans <code>db.php</code> via <code>CREATE TABLE IF NOT EXISTS</code>.</p>
+
+  <h3>machines</h3>
+  <p>Table d'inventaire centrale. Une ligne par adresse IP (clé unique sur <code>ip</code>).</p>
+  <table>
+    <thead><tr><th>Colonne</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>INT AUTO_INCREMENT</td><td>Clé primaire</td></tr>
+      <tr><td>hostname</td><td>VARCHAR</td><td>Hostname court ou IP si aucun nom résolu</td></tr>
+      <tr><td>ip</td><td>VARCHAR(45)</td><td>Adresse IPv4 — contrainte d'unicité</td></tr>
+      <tr><td>mac</td><td>VARCHAR(17)</td><td>Adresse MAC en majuscules séparée par des deux-points</td></tr>
+      <tr><td>vendor</td><td>VARCHAR</td><td>Fabricant de la carte réseau issu de la table OUI Nmap</td></tr>
+      <tr><td>os</td><td>VARCHAR</td><td>Chaîne OS issue de la détection Nmap ou d'une saisie manuelle</td></tr>
+      <tr><td>switch_port</td><td>VARCHAR</td><td>Étiquette du port switch (ex. <code>port1.0.3</code>), renseigné manuellement</td></tr>
+      <tr><td>patch_port</td><td>VARCHAR</td><td>Étiquette du port brassage (ex. <code>B31</code>), renseigné manuellement</td></tr>
+      <tr><td>open_ports</td><td>TEXT</td><td>Liste des ports ouverts séparés par des virgules, issus du dernier scan de ports</td></tr>
+      <tr><td>status</td><td>ENUM('up','down','unknown')</td><td>Statut de joignabilité courant</td></tr>
+      <tr><td>last_ping_ms</td><td>INT</td><td>RTT ping moyen en millisecondes du dernier ping</td></tr>
+      <tr><td>comment</td><td>TEXT</td><td>Note libre ; aussi alimentée par l'enrichissement WMI / NetBIOS</td></tr>
+      <tr><td>first_seen</td><td>DATETIME</td><td>Définie à l'INSERT, jamais mise à jour</td></tr>
+      <tr><td>last_seen</td><td>DATETIME</td><td>Mise à jour à chaque hit de scan ou ping</td></tr>
+    </tbody>
+  </table>
+
+  <h3>scan_history</h3>
+  <p>Une ligne par scan de découverte terminé.</p>
+  <table>
+    <thead><tr><th>Colonne</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>INT AUTO_INCREMENT</td><td>Clé primaire</td></tr>
+      <tr><td>scan_date</td><td>DATETIME</td><td>Horodatage de fin de scan</td></tr>
+      <tr><td>network</td><td>VARCHAR</td><td>Plage CIDR qui a été scannée</td></tr>
+      <tr><td>hosts_up</td><td>INT</td><td>Nombre d'hôtes trouvés actifs</td></tr>
+      <tr><td>hosts_down</td><td>INT</td><td>Stocké à 0 dans la version actuelle</td></tr>
+      <tr><td>duration_s</td><td>INT</td><td>Durée du scan en secondes</td></tr>
+    </tbody>
+  </table>
+
+  <h3>diag_history</h3>
+  <p>Journal de toutes les opérations de diagnostic (ping, traceroute, DNS, scan de ports, détection OS).</p>
+  <table>
+    <thead><tr><th>Colonne</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>INT AUTO_INCREMENT</td><td>Clé primaire</td></tr>
+      <tr><td>action</td><td>VARCHAR</td><td>Nom de l'outil : <code>ping</code>, <code>nmap</code>, <code>traceroute</code>, <code>dns</code>, <code>ports</code>, <code>infos</code>, <code>services</code>, <code>nmap_os</code></td></tr>
+      <tr><td>target</td><td>VARCHAR</td><td>IP, hostname ou CIDR ciblé</td></tr>
+      <tr><td>result</td><td>TEXT</td><td>20 premières lignes de la sortie de la commande</td></tr>
+      <tr><td>success</td><td>TINYINT</td><td>Toujours 1 dans la version actuelle</td></tr>
+      <tr><td>created</td><td>DATETIME</td><td>Horodatage de l'opération</td></tr>
+    </tbody>
+  </table>
+
+  <h3>patch_panel</h3>
+  <p>Ports du panneau de brassage physique, généralement alimentés par import (CSV ou SQL direct).</p>
+  <table>
+    <thead><tr><th>Colonne</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>INT AUTO_INCREMENT</td><td>Clé primaire</td></tr>
+      <tr><td>prise</td><td>VARCHAR</td><td>Étiquette de la prise murale (ex. <code>B31</code>) — unique</td></tr>
+      <tr><td>type</td><td>VARCHAR</td><td><code>RJ45</code>, <code>RJ11</code>, ou autre</td></tr>
+      <tr><td>entite</td><td>VARCHAR</td><td>Entité ou département propriétaire</td></tr>
+      <tr><td>local_name</td><td>VARCHAR</td><td>Nom du local ou de la pièce</td></tr>
+      <tr><td>etage</td><td>VARCHAR</td><td>Étage</td></tr>
+      <tr><td>poste</td><td>VARCHAR</td><td>Référence du poste ou du bureau</td></tr>
+      <tr><td>switch</td><td>VARCHAR</td><td>Nom ou identifiant du switch</td></tr>
+      <tr><td>port_switch</td><td>VARCHAR</td><td>Port switch (ex. <code>port1.0.3</code>)</td></tr>
+      <tr><td>notes</td><td>TEXT</td><td>Notes libres</td></tr>
+    </tbody>
+  </table>
+
+  <h3>patch_machines</h3>
+  <p>Jointure many-to-many entre les ports du panneau de brassage et les machines (un port peut desservir plusieurs IP).</p>
+  <table>
+    <thead><tr><th>Colonne</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>id</td><td>INT AUTO_INCREMENT</td><td>Clé primaire</td></tr>
+      <tr><td>prise</td><td>VARCHAR</td><td>Référence étrangère vers <code>patch_panel.prise</code></td></tr>
+      <tr><td>machine_ip</td><td>VARCHAR</td><td>Adresse IP de la machine sur ce port</td></tr>
+      <tr><td>hostname</td><td>VARCHAR</td><td>Hostname au moment de l'association</td></tr>
+    </tbody>
+  </table>
+
+  <!-- PAGES -->
+  <h2 id="pages">Pages</h2>
+
+  <!-- index.php -->
+  <div class="page-block" id="page-index">
+    <h3>Tableau de bord</h3>
+    <div class="file">index.php</div>
+    <div class="desc">Page d'entrée et de vue d'ensemble. Affiche les statistiques globales de l'inventaire, les 8 machines les plus récemment vues et les 5 dernières opérations de diagnostic.</div>
+    <div class="label">Accès</div>
+    <p>Nécessite une authentification via <code>requireAuth()</code>. Page d'accueil par défaut après connexion.</p>
+    <div class="label">Requêtes de données</div>
+    <ul>
+      <li>Nombre total de machines, compteurs par statut (<code>up</code>, <code>down</code>, <code>unknown</code>)</li>
+      <li>Dernier scan : date, réseau, nombre d'hôtes (depuis <code>scan_history</code>)</li>
+      <li>8 machines les plus récemment vues, triées par <code>last_seen DESC</code></li>
+      <li>5 entrées les plus récentes de <code>diag_history</code></li>
+    </ul>
+    <div class="label">Aucune action POST</div>
+    <p>Page en lecture seule. Toutes les actions (ping, ajout, suppression) se trouvent sur <code>inventory.php</code> et <code>machine.php</code>.</p>
+  </div>
+
+  <!-- inventory.php -->
+  <div class="page-block" id="page-inventory">
+    <h3>Inventaire</h3>
+    <div class="file">inventory.php</div>
+    <div class="desc">Liste complète des machines avec recherche, filtrage par statut, ping inline, ajout manuel, suppression et export CSV. Interface de gestion principale de la table machines.</div>
+    <div class="label">Paramètres GET</div>
+    <table>
+      <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>q</td><td>Recherche libre sur hostname, IP, OS, commentaire</td></tr>
+        <tr><td>status</td><td>Filtre par statut : <code>up</code>, <code>down</code>, ou <code>unknown</code></td></tr>
+        <tr><td>export=csv</td><td>Déclenche le téléchargement CSV de l'inventaire complet (ignore tous les filtres)</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Actions POST</div>
+    <table>
+      <thead><tr><th>Champ</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>add_machine</td><td>Insère une nouvelle ligne machine. Champs obligatoires : <code>hostname</code>, <code>ip</code> (IP valide). Optionnels : <code>os</code>, <code>comment</code>, <code>switch_port</code>, <code>patch_port</code>.</td></tr>
+        <tr><td>delete_id</td><td>Supprime la machine avec l'ID donné. Demande une confirmation JavaScript avant soumission.</td></tr>
+        <tr><td>ping_id</td><td>Lance un ping contre l'IP de la machine via <code>runPing()</code>, met à jour <code>status</code>, <code>last_ping_ms</code>, <code>last_seen</code>.</td></tr>
+        <tr><td>ping_all</td><td>Ping toutes les machines de l'inventaire séquentiellement. Met à jour tous les champs de statut.</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Export CSV</div>
+    <p>Déclenché par <code>?export=csv</code>. Exporte toutes les machines triées par <code>INET_ATON(ip)</code> (tri IP numérique). Colonnes : Hostname, IP, MAC, Fabricant, Port switch, Brassage, OS, Statut, Ports ouverts, Ping (ms), Dernière vue, Commentaire. BOM ajouté pour compatibilité Excel UTF-8.</p>
+    <div class="callout"><strong>Détection IP du serveur :</strong> la page d'inventaire détecte l'IP propre du serveur web via <code>$_SERVER['SERVER_ADDR']</code> et remplace l'affichage du champ MAC par <em>ce PC</em> (en italique) pour éviter toute confusion avec la MAC de Nmap (que Nmap ne peut pas lire pour la machine qui scanne).</div>
+  </div>
+
+  <!-- machine.php -->
+  <div class="page-block" id="page-machine">
+    <h3>Fiche machine</h3>
+    <div class="file">machine.php</div>
+    <div class="desc">Page de profil par machine. Affiche les informations réseau complètes, permet la modification de l'OS, du port switch, du port brassage et du commentaire, et fournit des actions de diagnostic rapide. Tous les résultats de diagnostic sont affichés dans un bloc terminal et enregistrés dans <code>diag_history</code>.</div>
+    <div class="label">Paramètres GET</div>
+    <table>
+      <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>id</td><td>ID de la machine (entier). Redirige vers <code>inventory.php</code> si non trouvée.</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Actions POST</div>
+    <table>
+      <thead><tr><th>Champ / valeur</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>save</td><td>Met à jour <code>os</code>, <code>switch_port</code>, <code>patch_port</code>, <code>comment</code> pour la machine.</td></tr>
+        <tr><td>diag=ping</td><td>Lance un ping via <code>runPing()</code>. Met à jour <code>status</code> et <code>last_ping_ms</code>.</td></tr>
+        <tr><td>diag=ports</td><td>Lance <code>nmap -p 21,22,23,25,80,110,143,443,445,3306,3389,5900,8080</code>. Met à jour <code>open_ports</code> en BDD.</td></tr>
+        <tr><td>diag=traceroute</td><td>Lance <code>tracert</code> (Windows).</td></tr>
+        <tr><td>diag=dns</td><td>Lance <code>nslookup</code>.</td></tr>
+        <tr><td>diag=nmap_os</td><td>Lance <code>nmap -O --host-timeout 10s</code>. Extrait et sauvegarde la ligne <code>OS details</code> dans <code>machines.os</code>.</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Rendu de la sortie terminal</div>
+    <p>Chaque ligne de sortie est classifiée et colorée : les lignes correspondant à <code>TTL</code>, <code>Reply</code> ou <code>open</code> sont en vert ; <code>timeout</code> / <code>unreachable</code> / <code>filtered</code> en orange ; <code>error</code> / <code>failed</code> en rouge. Un élément <code>&lt;pre id="raw-output"&gt;</code> masqué contient le texte brut pour la copie dans le presse-papier.</p>
+    <div class="warn"><strong>La détection OS nécessite des privilèges élevés :</strong> <code>nmap -O</code> requiert que le processus PHP s'exécute en tant qu'Administrateur (Windows) ou root (Linux).</div>
+  </div>
+
+  <!-- discovery.php -->
+  <div class="page-block" id="page-discovery">
+    <h3>Découverte réseau</h3>
+    <div class="file">discovery.php</div>
+    <div class="desc">Page de découverte. L'utilisateur saisit une plage CIDR, sélectionne des options d'enrichissement optionnelles et lance un scan. Les résultats sont diffusés en temps réel via Server-Sent Events depuis <code>scan_stream.php</code>. Les hôtes découverts sont automatiquement insérés ou mis à jour dans la table <code>machines</code>.</div>
+    <div class="label">Contrôles de l'interface</div>
+    <table>
+      <thead><tr><th>Contrôle</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Champ réseau</td><td>Plage CIDR (ex. <code>192.168.1.0/24</code>). Pré-rempli avec <code>DEFAULT_NETWORK</code>.</td></tr>
+        <tr><td>Ports communs</td><td>Si coché, lance un scan de ports supplémentaire sur chaque hôte découvert (<code>?ports=1</code>).</td></tr>
+        <tr><td>Détection OS</td><td>Ajoute <code>-O</code> à la commande Nmap (<code>?os=1</code>). Requiert admin/root.</td></tr>
+        <tr><td>Identifier NetBIOS</td><td>Lance une seconde passe de requêtes <code>nbstat</code> après le scan principal (<code>?nbstat=1</code>).</td></tr>
+        <tr><td>Descriptions WMI</td><td>Interroge chaque hôte actif via PowerShell WMI pour la description OS (<code>?wmi=1</code>).</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Flux d'événements SSE</div>
+    <p>La page ouvre une connexion <code>EventSource</code> vers <code>scan_stream.php</code> avec des paramètres de requête reflétant les options sélectionnées. Les événements sont traités par <code>handleEvent(data)</code> en JavaScript.</p>
+    <table>
+      <thead><tr><th>Type d'événement</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>line</td><td>Ligne brute de sortie Nmap. Classifiée par couleur et ajoutée au bloc terminal.</td></tr>
+        <tr><td>host_saved</td><td>Un hôte a été inséré ou mis à jour. Ajoute une ligne au tableau des hôtes découverts dans l'interface.</td></tr>
+        <tr><td>mac</td><td>Adresse MAC et fabricant résolus pour une IP. Met à jour la ligne correspondante dans le tableau.</td></tr>
+        <tr><td>os</td><td>Chaîne OS détectée. Met à jour la ligne correspondante dans le tableau.</td></tr>
+        <tr><td>nbstat</td><td>Nom NetBIOS résolu. Met à jour la colonne description dans le tableau des hôtes.</td></tr>
+        <tr><td>wmi</td><td>Description WMI récupérée. Ajoutée à la colonne description dans le tableau des hôtes.</td></tr>
+        <tr><td>done</td><td>Scan terminé. Met à jour les stats (nombre d'hôtes, durée), ajoute une ligne au tableau d'historique, complète la barre de progression.</td></tr>
+        <tr><td>error</td><td>Erreur fatale côté serveur. Ferme l'EventSource, affiche le message d'erreur.</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Historique des scans</div>
+    <p>Le bas de la page affiche les 10 entrées les plus récentes de <code>scan_history</code>. Une nouvelle ligne est ajoutée dynamiquement en JavaScript à la réception de l'événement <code>done</code>, sans rechargement de la page.</p>
+  </div>
+
+  <!-- scan_stream.php -->
+  <div class="page-block" id="page-scan">
+    <h3>Endpoint SSE de découverte</h3>
+    <div class="file">scan_stream.php</div>
+    <div class="desc">Endpoint Server-Sent Events consommé exclusivement par <code>discovery.php</code>. Exécute Nmap, analyse sa sortie ligne par ligne, insère ou met à jour les machines en base de données, et lance optionnellement des passes d'enrichissement NetBIOS et WMI. Non destiné à être accédé directement.</div>
+    <div class="label">Paramètres GET</div>
+    <table>
+      <thead><tr><th>Paramètre</th><th>Défaut</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>network</td><td>DEFAULT_NETWORK</td><td>Plage CIDR à scanner. Validée par <code>isValidTarget()</code> avant utilisation.</td></tr>
+        <tr><td>ports</td><td>0</td><td>Si <code>1</code>, lance un scan de ports sur chaque hôte découvert après le sweep ping.</td></tr>
+        <tr><td>os</td><td>0</td><td>Si <code>1</code>, utilise <code>nmap -sS -O</code> au lieu de <code>nmap -sn</code>. Requiert des privilèges élevés.</td></tr>
+        <tr><td>nbstat</td><td>0</td><td>Si <code>1</code>, lance une passe NetBIOS après le scan principal.</td></tr>
+        <tr><td>wmi</td><td>0</td><td>Si <code>1</code>, interroge les descriptions WMI via PowerShell après le scan principal.</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Phases du scan</div>
+    <ul>
+      <li><strong>Phase 1 — Sweep Nmap :</strong> lance <code>nmap -sn -R -T4</code> (ou <code>-sS -O</code> si la détection OS est activée) via <code>popen()</code>. La sortie est analysée ligne par ligne. À chaque ligne <code>Nmap scan report for</code>, l'hôte précédent (le cas échéant) est sauvegardé en BDD et un événement <code>host_saved</code> est émis. Les adresses MAC, fabricants et chaînes OS sont extraits par regex et émis comme événements séparés.</li>
+      <li><strong>Phase 2 — NetBIOS (optionnel) :</strong> itère toutes les machines <code>status='up'</code>. Pour chacune, lance <code>nmap -sU -p 137 --script nbstat</code>. Extrait le nom NetBIOS, le groupe de travail et l'utilisateur connecté. Met à jour le hostname (s'il est actuellement une IP) et le commentaire en BDD.</li>
+      <li><strong>Phase 3 — WMI (optionnel) :</strong> itère toutes les machines <code>status='up'</code>. Pour chacune, lance une requête PowerShell <code>Get-WmiObject Win32_OperatingSystem</code>. Stocke le champ <code>Description</code> dans <code>machines.comment</code> s'il n'est pas déjà renseigné.</li>
+    </ul>
+    <div class="label">Upsert en base de données</div>
+    <p>La fonction <code>saveMachineStream()</code> utilise <code>INSERT ... ON DUPLICATE KEY UPDATE</code> sur la colonne <code>ip</code>. Les valeurs existantes pour MAC, fabricant et OS sont préservées avec <code>COALESCE(VALUES(col), col)</code> — un scan n'écrasera pas les données saisies manuellement avec une valeur nulle.</p>
+    <div class="label">Encodage</div>
+    <p>La sortie Nmap sous Windows est typiquement en CP850. Chaque ligne est convertie en UTF-8 via <code>mb_convert_encoding($raw, 'UTF-8', 'CP850')</code> avant d'être émise comme payload JSON SSE.</p>
+    <div class="warn"><strong>Durée d'exécution :</strong> <code>set_time_limit(600)</code> est appelé. Les grands réseaux ou les hôtes lents peuvent approcher cette limite. Le buffering de sortie est désactivé (<code>ob_end_flush()</code>) pour garantir que les événements sont diffusés dès leur arrivée.</div>
+  </div>
+
+  <!-- menu.php -->
+  <div class="page-block" id="page-menu">
+    <h3>Diagnostics réseau</h3>
+    <div class="file">menu.php</div>
+    <div class="desc">Terminal de diagnostic polyvalent. L'utilisateur sélectionne un outil dans la barre latérale, saisit une cible et soumet le formulaire. Les résultats sont affichés dans un bloc terminal stylisé. Toutes les opérations sont enregistrées dans <code>diag_history</code>.</div>
+    <div class="label">Outils disponibles</div>
+    <table>
+      <thead><tr><th>Outil (valeur action)</th><th>Commande</th><th>Cible</th></tr></thead>
+      <tbody>
+        <tr><td>ping</td><td><code>ping</code> via <code>runPing()</code></td><td>IP ou hostname</td></tr>
+        <tr><td>nmap</td><td><code>nmap -sn</code></td><td>IP, hostname ou CIDR</td></tr>
+        <tr><td>traceroute</td><td><code>tracert</code></td><td>IP ou hostname</td></tr>
+        <tr><td>dns</td><td><code>nslookup</code></td><td>IP ou hostname</td></tr>
+        <tr><td>ports</td><td><code>nmap -p &lt;ports&gt;</code></td><td>IP ou hostname ; liste de ports configurable</td></tr>
+        <tr><td>infos</td><td>PowerShell <code>Get-NetIPAddress</code></td><td>Machine locale (pas de saisie de cible)</td></tr>
+        <tr><td>services</td><td>PowerShell <code>Get-Service</code> (actifs uniquement)</td><td>Machine locale (pas de saisie de cible)</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Rendu de la sortie</div>
+    <p>Les outils <code>nmap</code> et <code>ports</code> affichent leur sortie sous forme de tableaux HTML structurés. Tous les autres outils s'affichent dans un bloc terminal monospace avec classification par couleur via <code>colorLine()</code>. Un <code>&lt;pre id="raw-output"&gt;</code> masqué contient le texte brut pour la copie dans le presse-papier.</p>
+    <div class="label">Statistiques ping</div>
+    <p>Lorsque l'outil <code>ping</code> est utilisé, une ligne de stats s'affiche au-dessus du terminal : paquets envoyés, reçus, perdus (%) et latence moyenne. Ces valeurs sont extraites par <code>parsePingStats()</code> dans <code>db.php</code>.</p>
+    <div class="label">Export CSV</div>
+    <p>Lorsque des résultats sont disponibles, un bouton d'export apparaît. Il POSTs <code>export=csv</code> et retourne les lignes brutes comme CSV à une colonne.</p>
+    <div class="label">Navigation dans la barre latérale</div>
+    <p>Les liens de la barre latérale utilisent des paramètres de requête <code>?tool=&lt;action&gt;</code>. Un écouteur JavaScript intercepte ces clics, injecte la valeur de l'action dans le champ de formulaire masqué et soumet le formulaire pour éviter le rechargement de la page.</p>
+    <div class="callout"><strong>Validation de la cible :</strong> avant exécution, la cible est passée par <code>isValidTarget()</code> (définie dans <code>db.php</code>), qui accepte les adresses IP, hostnames et plages CIDR. Les outils <code>infos</code> et <code>services</code> contournent la validation de cible (ils ciblent toujours la machine locale).</div>
+  </div>
+
+  <!-- patch.php -->
+  <div class="page-block" id="page-patch">
+    <h3>Panneau de brassage</h3>
+    <div class="file">patch.php</div>
+    <div class="desc">Vue en lecture seule du panneau de brassage physique. Affiche les enregistrements de prises murales depuis la table <code>patch_panel</code> jointe aux IPs et hostnames de machines associées depuis <code>patch_machines</code>. Supporte le filtrage par switch, entité et recherche libre.</div>
+    <div class="label">Paramètres GET</div>
+    <table>
+      <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>q</td><td>Recherche libre sur l'étiquette de prise, le nom du local, le poste, l'IP, le hostname</td></tr>
+        <tr><td>switch</td><td>Filtre par identifiant de switch</td></tr>
+        <tr><td>entite</td><td>Filtre par entité / département</td></tr>
+      </tbody>
+    </table>
+    <div class="label">Alimentation des données</div>
+    <p>La table <code>patch_panel</code> n'est pas alimentée par NetDTL lui-même. Elle est destinée à être remplie par import externe (CSV, script SQL ou le moteur de patch panel du NetDTL Installer). L'application fournit uniquement l'interface de consultation et de filtrage.</p>
+    <div class="label">Résolution IP et hostname</div>
+    <p>Pour chaque port, les machines associées sont récupérées depuis <code>patch_machines</code> via une jointure <code>GROUP_CONCAT</code>. Plusieurs IPs et hostnames par port s'affichent sous forme de listes séparées par des virgules.</p>
+    <div class="label">Colorisation des badges</div>
+    <p>Les types de ports sont colorés : RJ45 en bleu, RJ11 en orange, inconnu en gris. Les badges d'entité distinguent l'équipement local (bleu-vert) du délégué (vert) par une correspondance insensible à la casse sur le mot <em>locale</em> dans le nom de l'entité.</p>
+  </div>
+
+  <!-- SHARED COMPONENTS -->
+  <h2 id="shared">Composants partagés</h2>
+
+  <div class="page-block" id="shared-db">
+    <h3>Base de données &amp; helpers</h3>
+    <div class="file">db.php</div>
+    <div class="desc">Fichier d'inclusion central. Définit toutes les constantes de configuration, la connexion à la base de données, l'initialisation du schéma, l'authentification et les fonctions helper. Inclus en haut de chaque page.</div>
+    <div class="label">Fonctions clés</div>
+    <table>
+      <thead><tr><th>Fonction</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>getDB()</td><td>Retourne une connexion PDO singleton. Lève une exception en cas d'échec.</td></tr>
+        <tr><td>initDB()</td><td>Crée toutes les tables si elles n'existent pas.</td></tr>
+        <tr><td>requireAuth()</td><td>Envoie un challenge <code>WWW-Authenticate: Basic</code> si les identifiants sont absents ou incorrects. Termine l'exécution en cas d'échec.</td></tr>
+        <tr><td>runCommand(string $cmd)</td><td>Exécute une commande shell via <code>shell_exec()</code>, convertit l'encodage de CP850 vers UTF-8, retourne un tableau de lignes non vides.</td></tr>
+        <tr><td>runPing(string $ip)</td><td>Lance <code>ping -n 4</code> (Windows) ou <code>ping -c 4</code> (Linux). Retourne les lignes de sortie.</td></tr>
+        <tr><td>parsePingStats(array $lines)</td><td>Analyse la sortie ping et retourne <code>['sent', 'recv', 'lost_pct', 'avg_ms']</code>.</td></tr>
+        <tr><td>isValidTarget(string $t)</td><td>Retourne <code>true</code> si <code>$t</code> est une IP valide, un hostname ou une plage CIDR.</td></tr>
+        <tr><td>timeAgo(string $date)</td><td>Retourne une chaîne de temps relatif lisible (ex. "il y a 3 minutes").</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-block" id="shared-style">
+    <h3>Feuille de style</h3>
+    <div class="file">style.php</div>
+    <div class="desc">Génère une balise <code>&lt;link&gt;</code> pour Google Fonts (IBM Plex Mono + IBM Plex Sans) et un bloc <code>&lt;style&gt;</code> complet contenant tout le CSS partagé. Inclus dans le <code>&lt;head&gt;</code> de chaque page via <code>&lt;?php include __DIR__ . '/style.php'; ?&gt;</code>.</div>
+    <div class="label">Tokens de design (variables CSS)</div>
+    <table>
+      <thead><tr><th>Variable</th><th>Valeur</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>--bg</td><td>#0d1117</td><td>Fond de page</td></tr>
+        <tr><td>--bg2</td><td>#161b22</td><td>Panneaux, barre latérale, barre supérieure</td></tr>
+        <tr><td>--bg3</td><td>#1c2230</td><td>En-têtes de tableau, cartes de stats</td></tr>
+        <tr><td>--accent</td><td>#3fb950</td><td>Vert — états actifs, badges "up", succès</td></tr>
+        <tr><td>--accent2</td><td>#58a6ff</td><td>Bleu — liens, adresses IP, valeurs de ports</td></tr>
+        <tr><td>--warn</td><td>#d29922</td><td>Orange — avertissements, statut inconnu, étiquettes switch</td></tr>
+        <tr><td>--err</td><td>#f85149</td><td>Rouge — erreurs, badges "down"</td></tr>
+        <tr><td>--purple</td><td>#bc8cff</td><td>Étiquettes de ports du panneau de brassage</td></tr>
+        <tr><td>--teal</td><td>#64c8c8</td><td>Badges d'entité locale, historique infos/services</td></tr>
+        <tr><td>--txt</td><td>#c9d1d9</td><td>Texte principal</td></tr>
+        <tr><td>--txt2</td><td>#8b949e</td><td>Texte secondaire / atténué</td></tr>
+        <tr><td>--txt3</td><td>#484f58</td><td>Placeholder / texte très atténué</td></tr>
+        <tr><td>--mono</td><td>IBM Plex Mono</td><td>Tout le contenu monospace (IPs, ports, terminal)</td></tr>
+        <tr><td>--sans</td><td>IBM Plex Sans</td><td>Étiquettes, badges, chrome de l'interface</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-block" id="shared-topbar">
+    <h3>Barre de navigation supérieure</h3>
+    <div class="file">topbar.php</div>
+    <div class="desc">Affiche la barre supérieure fixe avec le logo NetDTL, les liens de navigation principaux (Tableau de bord, Inventaire, Découverte, Brassage, Diagnostics) et le nom de l'utilisateur connecté. L'état actif est défini en comparant <code>basename($_SERVER['PHP_SELF'], '.php')</code> à la cible de chaque lien. Le lien Inventaire est aussi actif sur <code>machine.php</code>.</div>
+  </div>
+
+  <div class="page-block" id="shared-sidebar">
+    <h3>Barre latérale gauche</h3>
+    <div class="file">sidebar.php</div>
+    <div class="desc">Affiche la barre latérale de navigation gauche fixe avec deux sections : Navigation (Tableau de bord, Inventaire, Découverte, Brassage) et Diagnostics (les sept outils). La chaîne de version de <code>APP_VERSION</code> et la version PHP sont affichées en bas. Les états actifs suivent la même logique que <code>topbar.php</code> ; pour les liens d'outils de diagnostic, l'outil actif est lu depuis <code>$action</code> (défini dans <code>menu.php</code>) ou depuis <code>$_GET['tool']</code>.</div>
+  </div>
+
+  <!-- SECURITY -->
+  <h2 id="other" style="display:none"></h2>
+  <h2 id="security">Sécurité</h2>
+  <p>NetDTL utilise l'authentification HTTP Basic implémentée dans <code>requireAuth()</code>. Les identifiants sont stockés en clair dans <code>db.php</code>. Cela est acceptable pour un déploiement sur un réseau local de confiance, mais ne doit pas être exposé sur internet sans protection complémentaire (reverse proxy avec TLS, filtrage IP, etc.).</p>
+  <ul>
+    <li>Toutes les valeurs saisies par l'utilisateur rendues en HTML sont passées par <code>htmlspecialchars()</code>.</li>
+    <li>Toutes les requêtes de base de données utilisent des requêtes préparées PDO avec des paramètres liés.</li>
+    <li>Les commandes shell utilisent <code>escapeshellarg()</code> sur toutes les cibles fournies par l'utilisateur, validées au préalable par <code>isValidTarget()</code>.</li>
+    <li>La plage CIDR dans <code>scan_stream.php</code> est validée par <code>isValidTarget()</code> avant d'être transmise à Nmap.</li>
+  </ul>
+  <div class="warn"><strong>Identifiants :</strong> la constante <code>AUTH_PASS</code> est stockée en clair. Ne pas réutiliser un mot de passe sensible. Pour les environnements de production, envisager de remplacer <code>requireAuth()</code> par une authentification basée sur les sessions ou de déléguer l'authentification au serveur web.</div>
+
+  <!-- LIMITATIONS -->
+  <h2 id="limitations">Limitations connues</h2>
+  <ul>
+    <li><strong>Commandes centrées Windows.</strong> Le ping utilise <code>ping -n 4</code> et le traceroute utilise <code>tracert</code>. Sous Linux, <code>runPing()</code> bascule vers <code>ping -c 4</code>, mais <code>tracert</code> (menu.php) n'est pas adapté — utiliser <code>traceroute</code> manuellement sous Linux.</li>
+    <li><strong>Adresse MAC non disponible pour la machine qui scanne.</strong> Nmap ne peut pas lire sa propre MAC. La page d'inventaire détecte ce cas et remplace le champ MAC par l'étiquette <em>ce PC</em>.</li>
+    <li><strong>La détection OS nécessite des privilèges élevés.</strong> <code>nmap -O</code> et <code>nmap -sS</code> nécessitent que le processus du serveur web s'exécute en tant qu'Administrateur (Windows) ou root (Linux). Sans élévation, ces options ne retournent silencieusement aucune donnée OS.</li>
+    <li><strong>Les requêtes WMI nécessitent un accès réseau et une cible Windows.</strong> L'appel PowerShell WMI dans <code>scan_stream.php</code> ne fonctionne que contre des machines Windows autorisant le WMI distant, et uniquement lorsque le serveur qui scanne dispose d'identifiants appropriés sur la cible.</li>
+    <li><strong>L'identification NetBIOS nécessite UDP 137.</strong> Le script Nmap <code>nbstat</code> utilise le port UDP 137. Les pare-feux ou règles Windows Firewall bloquant ce port empêcheront la résolution des noms NetBIOS.</li>
+    <li><strong>Les données du panneau de brassage ne sont pas gérées par l'application.</strong> Les tables <code>patch_panel</code> et <code>patch_machines</code> doivent être alimentées en externe (ex. via le moteur de patch panel du NetDTL Installer ou un import SQL direct).</li>
+    <li><strong>Authentification mono-utilisateur.</strong> Il n'existe qu'un seul jeu d'identifiants. Il n'y a pas de gestion de rôles ni de journal d'audit par utilisateur.</li>
+    <li><strong>Limite de durée de scan.</strong> <code>set_time_limit(600)</code> limite les scans à 10 minutes. Les grands réseaux ou les réseaux lents peuvent dépasser cette limite.</li>
+    <li><strong><code>hosts_down</code> est toujours 0.</strong> La colonne <code>scan_history.hosts_down</code> est insérée à 0 ; les hôtes qui ne répondent pas ne sont simplement pas ajoutés à l'inventaire lors d'un scan.</li>
+  </ul>
+<p>&nbsp;</p>
+<a href="https://didiermorandi.com/netdtl/" target="_blank"><span style="color:yellow">NetDTL</span> Web site</a>
+</main>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
