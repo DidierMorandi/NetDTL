@@ -97,3 +97,19 @@ netdtl/
 ## License
 
 MIT — see `LICENSE` file.
+
+## Update - 14 June 2026
+
+The current code reports `APP_VERSION = '3.0'` in `db.example.php` and `db.php`.
+
+New and confirmed points:
+
+- Modernized PHP interface with dashboard, inventory, machine detail page, network discovery, and patch panel.
+- Real-time network scanning through Server-Sent Events in `scan_stream.php`.
+- Discovery options: ports, OS, NetBIOS/nbstat, and WMI description.
+- Automatic enrichment of discovered machines: name, IP, MAC, vendor, OS, open ports, latency, and last seen date.
+- Filterable inventory, manual machine creation, individual ping, global ping, and CSV export.
+- Machine detail page with direct diagnostics and editable OS, switch port, patch port, and comment fields.
+- Patch panel with search and filters by switch or entity.
+- Local bilingual documentation: user guides and reference manuals.
+- Warning: `db.php` contains local development configuration and should not be published as-is in production.
