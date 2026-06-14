@@ -1,89 +1,123 @@
+<p align="center">
+  <img src="logo.png" alt="Logo NetDTL" width="220">
+</p>
+
+<h1 align="center">NetDTL</h1>
+
+<p align="center">
+  Découverte réseau légère et inventaire d'infrastructure sans agent
+</p>
+
 # NetDTL
 
-Outil léger de gestion de parc réseau, sans agent à déployer sur les machines cibles.
-Développé en PHP/MySQL, il fonctionne sur XAMPP (Windows) ou tout environnement LAMP.
-Version 1.0-1 du 23 mai 2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com - Former DECcie (PRSTSC::DTL 1983-1986), VMS Expert and DCL Guru. NetDTL was built with a little help from my Friends: Claude and my cat Gépété. :-)
+NetDTL est un outil léger de gestion d'actifs réseau, sans agent à déployer sur les machines cibles.
+
+Il est construit en PHP/MySQL et fonctionne sous XAMPP sous Windows ou dans un environnement LAMP équivalent.
+
+Version 1.0-1 - 23 mai 2026 - (c) Didier DTL MORANDI - didier.morandi@gmail.com
 
 ## Fonctionnalités
 
-- Découverte réseau par plage CIDR via Nmap (streaming temps réel, Server-Sent Events)
-- Inventaire des machines avec historique de statut, ping, ports ouverts, MAC, fabricant
-- Identification NetBIOS et descriptions WMI si accessible (machines Windows)
-- Gestion du brassage réseau (patch panel et association prises/machines)
-- Diagnostics réseau : ping, traceroute, DNS lookup, scan de ports
-- Fiche machine éditable (OS, port switch, port brassage, commentaire)
-- Export CSV de l'inventaire
-- Interface web sombre, sans dépendance JavaScript externe
-- Authentification HTTP Basic intégrée
+- Découverte réseau par plage CIDR avec Nmap, diffusion en temps réel via Server-Sent Events.
+- Inventaire des machines avec historique de statut, ping, ports ouverts, adresse MAC et fabricant.
+- Identification NetBIOS et descriptions WMI lorsque disponibles sur les machines Windows.
+- Gestion du panneau de brassage avec association port-machine.
+- Diagnostics réseau : ping, traceroute, résolution DNS et scan de ports.
+- Fiche machine éditable : OS, port switch, port de brassage, commentaire.
+- Export CSV de l'inventaire.
+- Interface web sombre sans dépendance JavaScript externe.
+- Authentification HTTP Basic intégrée.
 
 ## Prérequis
 
-- PHP 8.x avec extensions `pdo_mysql`, `mbstring`
-- MySQL / MariaDB
-- [Nmap](https://nmap.org/download.html) installé et accessible
-- XAMPP (Windows) ou équivalent LAMP
+- PHP 8.x avec extensions `pdo_mysql` et `mbstring`.
+- MySQL ou MariaDB.
+- [Nmap](https://nmap.org/download.html) installé et accessible.
+- XAMPP sous Windows ou stack LAMP équivalente.
 
 ## Installation
 
 **1. Cloner le dépôt**
-```
+
+```powershell
 git clone https://github.com/DidierMorandi/netdtl.git
 cd netdtl
 ```
 
-**2. Copier et adapter la configuration**
-```
+**2. Copier et configurer**
+
+```powershell
 cp db.example.php db.php
 ```
-Éditez `db.php` et renseignez :
-- les identifiants MySQL (`DB_USER`, `DB_PASS`)
-- les identifiants d'accès à l'interface (`AUTH_USER`, `AUTH_PASS`)
-- le chemin vers Nmap (`NMAP_PATH`)
-- la plage réseau par défaut (`DEFAULT_NETWORK`)
 
-**3. Créer la base de données**
+Modifier `db.php` et renseigner :
 
-Importez `netdtl.sql` dans phpMyAdmin ou via MySQL CLI :
-```
+- identifiants MySQL (`DB_USER`, `DB_PASS`) ;
+- identifiants de l'interface (`AUTH_USER`, `AUTH_PASS`) ;
+- chemin de Nmap (`NMAP_PATH`) ;
+- plage réseau par défaut (`DEFAULT_NETWORK`).
+
+**3. Créer la base**
+
+Importer `netdtl.sql` via phpMyAdmin ou la ligne de commande MySQL :
+
+```powershell
 mysql -u root -p < netdtl.sql
 ```
 
-Les tables créées sont : `machines`, `scan_history`, `patch_panel`, `patch_machines`, `diag_history`.
+Tables créées : `machines`, `scan_history`, `patch_panel`, `patch_machines`, `diag_history`.
 
-Alternatively, la base est aussi initialisée automatiquement au premier lancement via `initDB()`.
+La base peut aussi être initialisée automatiquement au premier lancement via `initDB()`.
 
 **4. Accéder à l'interface**
 
-Placez les fichiers dans le dossier `htdocs` de XAMPP (ou la racine de votre vhost) et ouvrez :
-```
+Placer les fichiers dans `htdocs` de XAMPP ou dans la racine du vhost, puis ouvrir :
+
+```text
 http://localhost/netdtl/
 ```
 
 ## Structure des fichiers
 
-```
+```text
 netdtl/
-├── db.example.php      # Configuration type (à copier en db.php)
-├── db.php              # Configuration réelle (non versionné)
-├── index.php           # Tableau de bord
-├── inventory.php       # Inventaire des machines
-├── discovery.php       # Découverte réseau
-├── machine.php         # Fiche machine
-├── menu.php            # Outils de diagnostic
-├── patch_panel.php     # Gestion du brassage réseau
-├── scan_stream.php     # Endpoint SSE pour le scan Nmap
-├── sidebar.php         # Composant navigation latérale
-├── topbar.php          # Composant barre supérieure
-├── style.php           # CSS partagé
-└── netdtl.sql         # Schéma de base de données
+├── db.example.php      Configuration exemple
+├── db.php              Configuration réelle
+├── index.php           Tableau de bord
+├── inventory.php       Inventaire des machines
+├── discovery.php       Découverte réseau
+├── machine.php         Fiche machine
+├── menu.php            Outils de diagnostic
+├── patch_panel.php     Gestion du panneau de brassage
+├── scan_stream.php     Endpoint SSE pour scan Nmap
+├── sidebar.php         Navigation latérale
+├── topbar.php          Barre supérieure
+├── style.php           CSS partagé
+└── netdtl.sql          Schéma de base de données
 ```
 
 ## Sécurité
 
-- Ne pas exposer NetDTL sur Internet sans protection supplémentaire (VPN, reverse proxy avec TLS).
-- Modifier impérativement `AUTH_USER` et `AUTH_PASS` dans `db.php` avant tout déploiement.
-- Nmap nécessite des privilèges élevés pour la détection d'OS (`-O`). Lancez XAMPP en tant qu'administrateur si vous utilisez cette option.
+- Ne pas exposer NetDTL sur Internet sans protection supplémentaire : VPN, reverse proxy TLS, etc.
+- Modifier `AUTH_USER` et `AUTH_PASS` dans `db.php` avant tout déploiement.
+- La détection OS de Nmap (`-O`) nécessite des privilèges élevés. Lancer XAMPP en administrateur si cette option est utilisée.
 
 ## Licence
 
-MIT — voir fichier `LICENSE`.
+MIT - voir le fichier `LICENSE`.
+
+## Mise à jour - 14 juin 2026
+
+Le code courant indique `APP_VERSION = '3.0'` dans `db.example.php` et `db.php`.
+
+Points confirmés :
+
+- Interface PHP modernisée avec tableau de bord, inventaire, fiche machine, découverte réseau et panneau de brassage.
+- Scan réseau en temps réel via Server-Sent Events dans `scan_stream.php`.
+- Options de découverte : ports, OS, NetBIOS/nbstat et description WMI.
+- Enrichissement automatique des machines découvertes : nom, IP, MAC, fabricant, OS, ports ouverts, latence et date de dernière vue.
+- Inventaire filtrable, ajout manuel de machine, ping individuel, ping global et export CSV.
+- Fiche machine avec diagnostics directs et champs éditables : OS, port switch, port de brassage et commentaire.
+- Panneau de brassage avec recherche et filtres par switch ou entité.
+- Documentation locale bilingue : guides utilisateur et manuels de référence.
+- Attention : `db.php` contient une configuration locale de développement et ne doit pas être publié tel quel en production.
