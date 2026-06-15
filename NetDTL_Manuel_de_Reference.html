@@ -419,7 +419,7 @@ FLUSH PRIVILEGES;</code></pre>
       <tr><td>AUTH_USER</td><td>Nom d'utilisateur HTTP Basic Auth</td></tr>
       <tr><td>AUTH_PASS</td><td>Mot de passe HTTP Basic Auth (en clair dans la version actuelle)</td></tr>
       <tr><td>NMAP_PATH</td><td>Chemin complet vers le binaire Nmap, ex. <code>C:/Program Files (x86)/Nmap/nmap.exe</code></td></tr>
-      <tr><td>DEFAULT_NETWORK</td><td>Plage CIDR pré-remplie affichée sur la page de découverte</td></tr>
+      <tr><td>DEFAULT_NETWORK</td><td>Plage CIDR pré-remplié affichée sur la page de découverte</td></tr>
       <tr><td>APP_VERSION</td><td>Chaîne de version affichée dans le pied de la barre latérale</td></tr>
     </tbody>
   </table>
@@ -534,13 +534,13 @@ FLUSH PRIVILEGES;</code></pre>
     <h3>Inventaire</h3>
     <div class="file">inventory.php</div>
     <div class="desc">Liste complète des machines avec recherche, filtrage par statut, ping inline, ajout manuel, suppression et export CSV. Interface de gestion principale de la table machines.</div>
-    <div class="label">Paramètres GET</div>
+    <div class="label">Paramètrès GET</div>
     <table>
       <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>q</td><td>Recherche libre sur hostname, IP, OS, commentaire</td></tr>
         <tr><td>status</td><td>Filtre par statut : <code>up</code>, <code>down</code>, ou <code>unknown</code></td></tr>
-        <tr><td>export=csv</td><td>Déclenche le téléchargement CSV de l'inventaire complet (ignore tous les filtres)</td></tr>
+        <tr><td>export=csv</td><td>Déclénche le téléchargement CSV de l'inventaire complet (ignore tous les filtres)</td></tr>
       </tbody>
     </table>
     <div class="label">Actions POST</div>
@@ -554,7 +554,7 @@ FLUSH PRIVILEGES;</code></pre>
       </tbody>
     </table>
     <div class="label">Export CSV</div>
-    <p>Déclenché par <code>?export=csv</code>. Exporte toutes les machines triées par <code>INET_ATON(ip)</code> (tri IP numérique). Colonnes : Hostname, IP, MAC, Fabricant, Port switch, Brassage, OS, Statut, Ports ouverts, Ping (ms), Dernière vue, Commentaire. BOM ajouté pour compatibilité Excel UTF-8.</p>
+    <p>Déclénché par <code>?export=csv</code>. Exporte toutes les machines triées par <code>INET_ATON(ip)</code> (tri IP numérique). Colonnes : Hostname, IP, MAC, Fabricant, Port switch, Brassage, OS, Statut, Ports ouverts, Ping (ms), Dernière vue, Commentaire. BOM ajouté pour compatibilité Excel UTF-8.</p>
     <div class="callout"><strong>Détection IP du serveur :</strong> la page d'inventaire détecte l'IP propre du serveur web via <code>$_SERVER['SERVER_ADDR']</code> et remplace l'affichage du champ MAC par <em>ce PC</em> (en italique) pour éviter toute confusion avec la MAC de Nmap (que Nmap ne peut pas lire pour la machine qui scanne).</div>
   </div>
 
@@ -563,7 +563,7 @@ FLUSH PRIVILEGES;</code></pre>
     <h3>Fiche machine</h3>
     <div class="file">machine.php</div>
     <div class="desc">Page de profil par machine. Affiche les informations réseau complètes, permet la modification de l'OS, du port switch, du port brassage et du commentaire, et fournit des actions de diagnostic rapide. Tous les résultats de diagnostic sont affichés dans un bloc terminal et enregistrés dans <code>diag_history</code>.</div>
-    <div class="label">Paramètres GET</div>
+    <div class="label">Paramètrès GET</div>
     <table>
       <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
       <tbody>
@@ -600,11 +600,11 @@ FLUSH PRIVILEGES;</code></pre>
         <tr><td>Ports communs</td><td>Si coché, lance un scan de ports supplémentaire sur chaque hôte découvert (<code>?ports=1</code>).</td></tr>
         <tr><td>Détection OS</td><td>Ajoute <code>-O</code> à la commande Nmap (<code>?os=1</code>). Requiert admin/root.</td></tr>
         <tr><td>Identifier NetBIOS</td><td>Lance une seconde passe de requêtes <code>nbstat</code> après le scan principal (<code>?nbstat=1</code>).</td></tr>
-        <tr><td>Descriptions WMI</td><td>Interroge chaque hôte actif via PowerShell WMI pour la description OS (<code>?wmi=1</code>).</td></tr>
+        <tr><td>Descriptions WMI</td><td>Interroge chaque hôte actif via PowerShell WMI pour là description OS (<code>?wmi=1</code>).</td></tr>
       </tbody>
     </table>
     <div class="label">Flux d'événements SSE</div>
-    <p>La page ouvre une connexion <code>EventSource</code> vers <code>scan_stream.php</code> avec des paramètres de requête reflétant les options sélectionnées. Les événements sont traités par <code>handleEvent(data)</code> en JavaScript.</p>
+    <p>La page ouvre une connexion <code>EventSource</code> vers <code>scan_stream.php</code> avec des paramètrès de requête reflétant les options sélectionnées. Les événements sont traités par <code>handleEvent(data)</code> en JavaScript.</p>
     <table>
       <thead><tr><th>Type d'événement</th><th>Description</th></tr></thead>
       <tbody>
@@ -615,11 +615,11 @@ FLUSH PRIVILEGES;</code></pre>
         <tr><td>nbstat</td><td>Nom NetBIOS résolu. Met à jour la colonne description dans le tableau des hôtes.</td></tr>
         <tr><td>wmi</td><td>Description WMI récupérée. Ajoutée à la colonne description dans le tableau des hôtes.</td></tr>
         <tr><td>done</td><td>Scan terminé. Met à jour les stats (nombre d'hôtes, durée), ajoute une ligne au tableau d'historique, complète la barre de progression.</td></tr>
-        <tr><td>error</td><td>Erreur fatale côté serveur. Ferme l'EventSource, affiche le message d'erreur.</td></tr>
+        <tr><td>error</td><td>Erreur fatale côté serveur. Ferme l'EventSource, affiché le message d'erreur.</td></tr>
       </tbody>
     </table>
     <div class="label">Historique des scans</div>
-    <p>Le bas de la page affiche les 10 entrées les plus récentes de <code>scan_history</code>. Une nouvelle ligne est ajoutée dynamiquement en JavaScript à la réception de l'événement <code>done</code>, sans rechargement de la page.</p>
+    <p>Le bas de la page affiché les 10 entrées les plus récentes de <code>scan_history</code>. Une nouvelle ligne est ajoutée dynamiquement en JavaScript à la réception de l'événement <code>done</code>, sans rechargement de la page.</p>
   </div>
 
   <!-- scan_stream.php -->
@@ -627,13 +627,13 @@ FLUSH PRIVILEGES;</code></pre>
     <h3>Endpoint SSE de découverte</h3>
     <div class="file">scan_stream.php</div>
     <div class="desc">Endpoint Server-Sent Events consommé exclusivement par <code>discovery.php</code>. Exécute Nmap, analyse sa sortie ligne par ligne, insère ou met à jour les machines en base de données, et lance optionnellement des passes d'enrichissement NetBIOS et WMI. Non destiné à être accédé directement.</div>
-    <div class="label">Paramètres GET</div>
+    <div class="label">Paramètrès GET</div>
     <table>
       <thead><tr><th>Paramètre</th><th>Défaut</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>network</td><td>DEFAULT_NETWORK</td><td>Plage CIDR à scanner. Validée par <code>isValidTarget()</code> avant utilisation.</td></tr>
         <tr><td>ports</td><td>0</td><td>Si <code>1</code>, lance un scan de ports sur chaque hôte découvert après le sweep ping.</td></tr>
-        <tr><td>os</td><td>0</td><td>Si <code>1</code>, utilise <code>nmap -sS -O</code> au lieu de <code>nmap -sn</code>. Requiert des privilèges élevés.</td></tr>
+        <tr><td>os</td><td>0</td><td>Si <code>1</code>, utilisé <code>nmap -sS -O</code> au liéu de <code>nmap -sn</code>. Requiert des privilèges élevés.</td></tr>
         <tr><td>nbstat</td><td>0</td><td>Si <code>1</code>, lance une passe NetBIOS après le scan principal.</td></tr>
         <tr><td>wmi</td><td>0</td><td>Si <code>1</code>, interroge les descriptions WMI via PowerShell après le scan principal.</td></tr>
       </tbody>
@@ -645,7 +645,7 @@ FLUSH PRIVILEGES;</code></pre>
       <li><strong>Phase 3 — WMI (optionnel) :</strong> itère toutes les machines <code>status='up'</code>. Pour chacune, lance une requête PowerShell <code>Get-WmiObject Win32_OperatingSystem</code>. Stocke le champ <code>Description</code> dans <code>machines.comment</code> s'il n'est pas déjà renseigné.</li>
     </ul>
     <div class="label">Upsert en base de données</div>
-    <p>La fonction <code>saveMachineStream()</code> utilise <code>INSERT ... ON DUPLICATE KEY UPDATE</code> sur la colonne <code>ip</code>. Les valeurs existantes pour MAC, fabricant et OS sont préservées avec <code>COALESCE(VALUES(col), col)</code> — un scan n'écrasera pas les données saisies manuellement avec une valeur nulle.</p>
+    <p>La fonction <code>saveMachineStream()</code> utilisé <code>INSERT ... ON DUPLICATE KEY UPDATE</code> sur la colonne <code>ip</code>. Les valeurs existantes pour MAC, fabricant et OS sont préservées avec <code>COALESCE(VALUES(col), col)</code> — un scan n'écrasera pas les données saisies manuellement avec une valeur nulle.</p>
     <div class="label">Encodage</div>
     <p>La sortie Nmap sous Windows est typiquement en CP850. Chaque ligne est convertie en UTF-8 via <code>mb_convert_encoding($raw, 'UTF-8', 'CP850')</code> avant d'être émise comme payload JSON SSE.</p>
     <div class="warn"><strong>Durée d'exécution :</strong> <code>set_time_limit(600)</code> est appelé. Les grands réseaux ou les hôtes lents peuvent approcher cette limite. Le buffering de sortie est désactivé (<code>ob_end_flush()</code>) pour garantir que les événements sont diffusés dès leur arrivée.</div>
@@ -670,13 +670,13 @@ FLUSH PRIVILEGES;</code></pre>
       </tbody>
     </table>
     <div class="label">Rendu de la sortie</div>
-    <p>Les outils <code>nmap</code> et <code>ports</code> affichent leur sortie sous forme de tableaux HTML structurés. Tous les autres outils s'affichent dans un bloc terminal monospace avec classification par couleur via <code>colorLine()</code>. Un <code>&lt;pre id="raw-output"&gt;</code> masqué contient le texte brut pour la copie dans le presse-papier.</p>
+    <p>Les outils <code>nmap</code> et <code>ports</code> affichént leur sortie sous forme de tableaux HTML structurés. Tous les autrès outils s'affichént dans un bloc terminal monospace avec classification par couleur via <code>colorLine()</code>. Un <code>&lt;pre id="raw-output"&gt;</code> masqué contient le texte brut pour la copie dans le presse-papier.</p>
     <div class="label">Statistiques ping</div>
-    <p>Lorsque l'outil <code>ping</code> est utilisé, une ligne de stats s'affiche au-dessus du terminal : paquets envoyés, reçus, perdus (%) et latence moyenne. Ces valeurs sont extraites par <code>parsePingStats()</code> dans <code>db.php</code>.</p>
+    <p>Lorsque l'outil <code>ping</code> est utilisé, une ligne de stats s'affiché au-dessus du terminal : paquets envoyés, reçus, perdus (%) et latence moyenne. Ces valeurs sont extraites par <code>parsePingStats()</code> dans <code>db.php</code>.</p>
     <div class="label">Export CSV</div>
     <p>Lorsque des résultats sont disponibles, un bouton d'export apparaît. Il POSTs <code>export=csv</code> et retourne les lignes brutes comme CSV à une colonne.</p>
     <div class="label">Navigation dans la barre latérale</div>
-    <p>Les liens de la barre latérale utilisent des paramètres de requête <code>?tool=&lt;action&gt;</code>. Un écouteur JavaScript intercepte ces clics, injecte la valeur de l'action dans le champ de formulaire masqué et soumet le formulaire pour éviter le rechargement de la page.</p>
+    <p>Les liens de la barre latérale utilisent des paramètrès de requête <code>?tool=&lt;action&gt;</code>. Un écouteur JavaScript intercepte ces clics, injecte la valeur de l'action dans le champ de formulaire masqué et soumet le formulaire pour éviter le rechargement de la page.</p>
     <div class="callout"><strong>Validation de la cible :</strong> avant exécution, la cible est passée par <code>isValidTarget()</code> (définie dans <code>db.php</code>), qui accepte les adresses IP, hostnames et plages CIDR. Les outils <code>infos</code> et <code>services</code> contournent la validation de cible (ils ciblent toujours la machine locale).</div>
   </div>
 
@@ -685,7 +685,7 @@ FLUSH PRIVILEGES;</code></pre>
     <h3>Panneau de brassage</h3>
     <div class="file">patch.php</div>
     <div class="desc">Vue en lecture seule du panneau de brassage physique. Affiche les enregistrements de prises murales depuis la table <code>patch_panel</code> jointe aux IPs et hostnames de machines associées depuis <code>patch_machines</code>. Supporte le filtrage par switch, entité et recherche libre.</div>
-    <div class="label">Paramètres GET</div>
+    <div class="label">Paramètrès GET</div>
     <table>
       <thead><tr><th>Paramètre</th><th>Description</th></tr></thead>
       <tbody>
@@ -695,9 +695,9 @@ FLUSH PRIVILEGES;</code></pre>
       </tbody>
     </table>
     <div class="label">Alimentation des données</div>
-    <p>La table <code>patch_panel</code> n'est pas alimentée par NetDTL lui-même. Elle est destinée à être remplie par import externe (CSV, script SQL ou le moteur de patch panel du NetDTL Installer). L'application fournit uniquement l'interface de consultation et de filtrage.</p>
+    <p>La table <code>patch_panel</code> n'est pas alimentée par NetDTL lui-même. Elle est destinée à être remplié par import externe (CSV, script SQL ou le moteur de patch panel du NetDTL Installer). L'application fournit uniquement l'interface de consultation et de filtrage.</p>
     <div class="label">Résolution IP et hostname</div>
-    <p>Pour chaque port, les machines associées sont récupérées depuis <code>patch_machines</code> via une jointure <code>GROUP_CONCAT</code>. Plusieurs IPs et hostnames par port s'affichent sous forme de listes séparées par des virgules.</p>
+    <p>Pour chaque port, les machines associées sont récupérées depuis <code>patch_machines</code> via une jointure <code>GROUP_CONCAT</code>. Plusieurs IPs et hostnames par port s'affichént sous forme de listes séparées par des virgules.</p>
     <div class="label">Colorisation des badges</div>
     <p>Les types de ports sont colorés : RJ45 en bleu, RJ11 en orange, inconnu en gris. Les badges d'entité distinguent l'équipement local (bleu-vert) du délégué (vert) par une correspondance insensible à la casse sur le mot <em>locale</em> dans le nom de l'entité.</p>
   </div>
@@ -754,7 +754,7 @@ FLUSH PRIVILEGES;</code></pre>
   <div class="page-block" id="shared-topbar">
     <h3>Barre de navigation supérieure</h3>
     <div class="file">topbar.php</div>
-    <div class="desc">Affiche la barre supérieure fixe avec le logo NetDTL, les liens de navigation principaux (Tableau de bord, Inventaire, Découverte, Brassage, Diagnostics) et le nom de l'utilisateur connecté. L'état actif est défini en comparant <code>basename($_SERVER['PHP_SELF'], '.php')</code> à la cible de chaque lien. Le lien Inventaire est aussi actif sur <code>machine.php</code>.</div>
+    <div class="desc">Affiche la barre supérieure fixe avec le logo NetDTL, les liens de navigation principaux (Tableau de bord, Inventaire, Découverte, Brassage, Diagnostics) et le nom de l'utilisateur connecté. L'état actif est défini en comparant <code>basename($_SERVER['PHP_SELF'], '.php')</code> à la cible de chaque lién. Le lién Inventaire est aussi actif sur <code>machine.php</code>.</div>
   </div>
 
   <div class="page-block" id="shared-sidebar">
@@ -766,23 +766,23 @@ FLUSH PRIVILEGES;</code></pre>
   <!-- SECURITY -->
   <h2 id="other" style="display:none"></h2>
   <h2 id="security">Sécurité</h2>
-  <p>NetDTL utilise l'authentification HTTP Basic implémentée dans <code>requireAuth()</code>. Les identifiants sont stockés en clair dans <code>db.php</code>. Cela est acceptable pour un déploiement sur un réseau local de confiance, mais ne doit pas être exposé sur internet sans protection complémentaire (reverse proxy avec TLS, filtrage IP, etc.).</p>
+  <p>NetDTL utilisé l'authentification HTTP Basic implémentée dans <code>requireAuth()</code>. Les identifiants sont stockés en clair dans <code>db.php</code>. Cela est acceptable pour un déploiement sur un réseau local de confiance, mais ne doit pas être exposé sur internet sans protection complémentaire (reverse proxy avec TLS, filtrage IP, etc.).</p>
   <ul>
     <li>Toutes les valeurs saisies par l'utilisateur rendues en HTML sont passées par <code>htmlspecialchars()</code>.</li>
-    <li>Toutes les requêtes de base de données utilisent des requêtes préparées PDO avec des paramètres liés.</li>
+    <li>Toutes les requêtes de base de données utilisent des requêtes préparées PDO avec des paramètrès liés.</li>
     <li>Les commandes shell utilisent <code>escapeshellarg()</code> sur toutes les cibles fournies par l'utilisateur, validées au préalable par <code>isValidTarget()</code>.</li>
     <li>La plage CIDR dans <code>scan_stream.php</code> est validée par <code>isValidTarget()</code> avant d'être transmise à Nmap.</li>
   </ul>
-  <div class="warn"><strong>Identifiants :</strong> la constante <code>AUTH_PASS</code> est stockée en clair. Ne pas réutiliser un mot de passe sensible. Pour les environnements de production, envisager de remplacer <code>requireAuth()</code> par une authentification basée sur les sessions ou de déléguer l'authentification au serveur web.</div>
+  <div class="warn"><strong>Identifiants :</strong> la constante <code>AUTH_PASS</code> est stockée en clair. Ne pas réutilisér un mot de passe sensible. Pour les environnements de production, envisager de remplacer <code>requireAuth()</code> par une authentification basée sur les sessions ou de déléguer l'authentification au serveur web.</div>
 
   <!-- LIMITATIONS -->
   <h2 id="limitations">Limitations connues</h2>
   <ul>
-    <li><strong>Commandes centrées Windows.</strong> Le ping utilise <code>ping -n 4</code> et le traceroute utilise <code>tracert</code>. Sous Linux, <code>runPing()</code> bascule vers <code>ping -c 4</code>, mais <code>tracert</code> (menu.php) n'est pas adapté — utiliser <code>traceroute</code> manuellement sous Linux.</li>
+    <li><strong>Commandes centrées Windows.</strong> Le ping utilisé <code>ping -n 4</code> et le traceroute utilisé <code>tracert</code>. Sous Linux, <code>runPing()</code> bascule vers <code>ping -c 4</code>, mais <code>tracert</code> (menu.php) n'est pas adapté — utilisér <code>traceroute</code> manuellement sous Linux.</li>
     <li><strong>Adresse MAC non disponible pour la machine qui scanne.</strong> Nmap ne peut pas lire sa propre MAC. La page d'inventaire détecte ce cas et remplace le champ MAC par l'étiquette <em>ce PC</em>.</li>
     <li><strong>La détection OS nécessite des privilèges élevés.</strong> <code>nmap -O</code> et <code>nmap -sS</code> nécessitent que le processus du serveur web s'exécute en tant qu'Administrateur (Windows) ou root (Linux). Sans élévation, ces options ne retournent silencieusement aucune donnée OS.</li>
     <li><strong>Les requêtes WMI nécessitent un accès réseau et une cible Windows.</strong> L'appel PowerShell WMI dans <code>scan_stream.php</code> ne fonctionne que contre des machines Windows autorisant le WMI distant, et uniquement lorsque le serveur qui scanne dispose d'identifiants appropriés sur la cible.</li>
-    <li><strong>L'identification NetBIOS nécessite UDP 137.</strong> Le script Nmap <code>nbstat</code> utilise le port UDP 137. Les pare-feux ou règles Windows Firewall bloquant ce port empêcheront la résolution des noms NetBIOS.</li>
+    <li><strong>L'identification NetBIOS nécessite UDP 137.</strong> Le script Nmap <code>nbstat</code> utilisé le port UDP 137. Les pare-feux ou règles Windows Firewall bloquant ce port empêcheront la résolution des noms NetBIOS.</li>
     <li><strong>Les données du panneau de brassage ne sont pas gérées par l'application.</strong> Les tables <code>patch_panel</code> et <code>patch_machines</code> doivent être alimentées en externe (ex. via le moteur de patch panel du NetDTL Installer ou un import SQL direct).</li>
     <li><strong>Authentification mono-utilisateur.</strong> Il n'existe qu'un seul jeu d'identifiants. Il n'y a pas de gestion de rôles ni de journal d'audit par utilisateur.</li>
     <li><strong>Limite de durée de scan.</strong> <code>set_time_limit(600)</code> limite les scans à 10 minutes. Les grands réseaux ou les réseaux lents peuvent dépasser cette limite.</li>

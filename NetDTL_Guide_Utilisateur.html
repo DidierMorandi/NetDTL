@@ -361,7 +361,7 @@
 
   <div class="doc-header">
     <h1><span class="accent">NetDTL</span> &mdash; Guide utilisateur</h1>
-    <p style="color:var(--text-muted);font-size:13px;margin-top:10px;">Guide pratique pour utiliser NetDTL v3.0 : découverte réseau, gestion de l'inventaire, diagnostics et consultation du panneau de brassage.</p>
+    <p style="color:var(--text-muted);font-size:13px;margin-top:10px;">Guide pratique pour utilisér NetDTL v3.0 : découverte réseau, gestion de l'inventaire, diagnostics et consultation du panneau de brassage.</p>
     <div class="meta-pills">
       <span class="pill"><span class="k">version</span>3.0</span>
       <span class="pill"><span class="k">plateforme</span>Windows / Linux</span>
@@ -408,15 +408,15 @@ define('APP_VERSION',    '3.0');</code></pre>
 
   <!-- LOGIN -->
   <h2 id="login">Connexion</h2>
-  <p>NetDTL utilise l'authentification HTTP Basic. À la première ouverture dans une session navigateur, celui-ci affiche une boîte de dialogue de connexion. Saisir le nom d'utilisateur et le mot de passe définis dans <code>AUTH_USER</code> et <code>AUTH_PASS</code> de <code>db.php</code>.</p>
+  <p>NetDTL utilisé l'authentification HTTP Basic. À la première ouverture dans une session navigateur, celui-ci affiche une boîte de dialogue de connexion. Saisir le nom d'utilisateur et le mot de passe définis dans <code>AUTH_USER</code> et <code>AUTH_PASS</code> de <code>db.php</code>.</p>
   <div class="callout"><strong>Compte unique :</strong> il n'existe qu'un seul jeu d'identifiants. Tous les utilisateurs connaissant le mot de passe ont accès à toutes les fonctionnalités, y compris la suppression et les scans.</div>
   <div class="warn"><strong>Sécurité :</strong> ne pas exposer NetDTL sur internet sans protection complémentaire (TLS, filtrage IP, authentification via reverse proxy). L'application est conçue pour un usage sur réseau local de confiance.</div>
 
   <!-- LAYOUT -->
   <h2 id="layout">Interface</h2>
   <p>Chaque page partage la même structure en deux parties : une barre supérieure fixe et une barre latérale gauche permanente.</p>
-  <p><strong>Barre supérieure :</strong> affiche le logo NetDTL (lien vers le tableau de bord), les cinq liens de navigation principaux et le nom de l'utilisateur connecté.</p>
-  <p><strong>Barre latérale gauche :</strong> navigation détaillée. La section supérieure couvre les quatre pages principales (Tableau de bord, Inventaire, Découverte, Brassage). La section inférieure liste les sept outils de diagnostic. La page ou l'outil actif est surligné en vert.</p>
+  <p><strong>Barre supérieure :</strong> affiché le logo NetDTL (lién vers le tableau de bord), les cinq liens de navigation principaux et le nom de l'utilisateur connecté.</p>
+  <p><strong>Barre latérale gauche :</strong> navigation détaillée. La section supérieure couvre les quatre pages principales (Tableau de bord, Inventaire, Découverte, Brassage). La section inférieure liste les sept outils de diagnostic. La page où l'outil actif est surligné en vert.</p>
   <p>La zone de contenu principale occupe le reste de la fenêtre. Une barre d'outils en haut de chaque page regroupe les actions principales (champs de recherche, boutons d'action, liens d'export).</p>
 
   <!-- PAGES -->
@@ -429,7 +429,7 @@ define('APP_VERSION',    '3.0');</code></pre>
     <div class="label">Contenu</div>
     <ul>
       <li><strong>Ligne de stats :</strong> total des machines connues, compteurs up / down / inconnu, durée depuis le dernier scan.</li>
-      <li><strong>Machines récemment vues :</strong> les 8 machines les plus récemment actives, avec badge de statut, hostname (lien vers la fiche), IP, OS, date de dernière vue et latence ping.</li>
+      <li><strong>Machines récemment vues :</strong> les 8 machines les plus récemment actives, avec badge de statut, hostname (lién vers la fiche), IP, OS, date de dernière vue et latence ping.</li>
       <li><strong>Diagnostics récents :</strong> les 5 dernières opérations de diagnostic exécutées depuis n'importe quelle page, avec nom de l'outil, cible, date et indicateur de succès.</li>
     </ul>
     <div class="callout"><strong>Conseil :</strong> le tableau de bord est en lecture seule. Pour agir sur une machine (ping, scan de ports, édition), cliquer sur son hostname pour accéder à sa fiche, ou aller dans l'inventaire pour les opérations en masse.</div>
@@ -451,7 +451,7 @@ define('APP_VERSION',    '3.0');</code></pre>
         <tr><td>↓ CSV</td><td>Télécharge l'inventaire complet en CSV UTF-8 (compatible Excel). Tous les champs, triés par IP.</td></tr>
       </tbody>
     </table>
-    <div class="label">Filtres de statut</div>
+    <div class="label">Filtrès de statut</div>
     <p>Sous la ligne de stats, des boutons pilule permettent de filtrer la liste sur les machines <strong>Up</strong>, <strong>Down</strong> ou <strong>Inconnu</strong>. Le filtre se combine avec le terme de recherche actif.</p>
     <div class="label">Actions par machine</div>
     <table>
@@ -464,7 +464,7 @@ define('APP_VERSION',    '3.0');</code></pre>
     </table>
     <div class="label">Notes sur les colonnes</div>
     <ul>
-      <li>La colonne <strong>MAC</strong> affiche <em>ce PC</em> en italique pour la machine qui héberge NetDTL, car Nmap ne peut pas lire sa propre adresse MAC.</li>
+      <li>La colonne <strong>MAC</strong> affiché <em>ce PC</em> en italique pour la machine qui héberge NetDTL, car Nmap ne peut pas lire sa propre adresse MAC.</li>
       <li><strong>Port switch</strong> (bleu) et <strong>Port brassage</strong> (violet) se renseignent manuellement depuis la fiche machine ou le modal d'ajout.</li>
       <li>Les machines sont triées par ordre IP numérique (<code>INET_ATON</code>), pas alphabétiquement.</li>
     </ul>
@@ -475,11 +475,11 @@ define('APP_VERSION',    '3.0');</code></pre>
   <!-- MACHINE DETAIL -->
   <div class="section-block" id="machine">
     <h3>Fiche machine</h3>
-    <div class="desc">Page de profil par machine. Accessible en cliquant sur un hostname n'importe où dans l'application. Regroupe les informations réseau, les actions de diagnostic rapide et un formulaire de profil éditable.</div>
+    <div class="desc">Page de profil par machine. Accèssible en cliquant sur un hostname n'importe où dans l'application. Regroupe les informations réseau, les actions de diagnostic rapide et un formulaire de profil éditable.</div>
     <div class="label">Panneau d'informations réseau</div>
     <p>Affiche IP, MAC, date de dernière vue, latence ping, port switch, port brassage et ports ouverts. Les ports ouverts sont mis à jour automatiquement après un scan de ports depuis cette page.</p>
     <div class="label">Diagnostics rapides</div>
-    <p>Cinq boutons déclenchent des actions de diagnostic directement sur l'IP de cette machine. Les résultats s'affichent dans un bloc terminal et sont enregistrés dans l'historique des diagnostics.</p>
+    <p>Cinq boutons déclénchent des actions de diagnostic directement sur l'IP de cette machine. Les résultats s'affichént dans un bloc terminal et sont enregistrés dans l'historique des diagnostics.</p>
     <table>
       <thead><tr><th>Bouton</th><th>Commande exécutée</th><th>Effet secondaire</th></tr></thead>
       <tbody>
@@ -509,7 +509,7 @@ define('APP_VERSION',    '3.0');</code></pre>
         <tr><td>Ports communs</td><td>Après le sweep ping, lance un scan de ports sur chaque hôte découvert</td><td>Augmente significativement la durée du scan</td></tr>
         <tr><td>Détection OS</td><td>Utilise <code>nmap -O</code> pour le fingerprinting OS</td><td>Requiert l'exécution du serveur web en Administrateur / root</td></tr>
         <tr><td>Identifier NetBIOS</td><td>Lance une seconde passe en interrogeant UDP 137 sur chaque hôte actif pour résoudre les noms NetBIOS, groupe de travail et utilisateur connecté</td><td>Nécessite UDP 137 accessible sur les cibles</td></tr>
-        <tr><td>Descriptions WMI</td><td>Interroge chaque hôte Windows via PowerShell WMI pour obtenir la description de son OS</td><td>Fonctionne uniquement sur les cibles Windows autorisant le WMI distant</td></tr>
+        <tr><td>Descriptions WMI</td><td>Interroge chaque hôte Windows via PowerShell WMI pour obtenir là description de son OS</td><td>Fonctionne uniquement sur les cibles Windows autorisant le WMI distant</td></tr>
       </tbody>
     </table>
     <div class="label">Pendant un scan</div>
@@ -527,7 +527,7 @@ define('APP_VERSION',    '3.0');</code></pre>
   <!-- DIAGNOSTICS -->
   <div class="section-block" id="diagnostics">
     <h3>Diagnostics</h3>
-    <div class="desc">Terminal de diagnostic réseau polyvalent. Sélectionner un outil dans la barre latérale, saisir une cible dans la barre d'outils et cliquer sur <strong>▶ Exécuter</strong>. Les résultats s'affichent dans un bloc terminal et sont enregistrés dans l'historique de session.</div>
+    <div class="desc">Terminal de diagnostic réseau polyvalent. Sélectionner un outil dans la barre latérale, saisir une cible dans la barre d'outils et cliquer sur <strong>▶ Exécuter</strong>. Les résultats s'affichént dans un bloc terminal et sont enregistrés dans l'historique de session.</div>
     <div class="label">Outils disponibles</div>
     <table>
       <thead><tr><th>Outil</th><th>Entrée</th><th>Format de sortie</th></tr></thead>
@@ -546,7 +546,7 @@ define('APP_VERSION',    '3.0');</code></pre>
     <div class="label">Exporter les résultats</div>
     <p>Lorsque des résultats sont disponibles, un bouton <strong>↓ CSV</strong> apparaît dans la barre d'outils. Il télécharge les lignes brutes comme fichier CSV à une colonne, nommé d'après l'outil et l'horodatage.</p>
     <div class="label">Historique de session</div>
-    <p>Le panneau inférieur affiche les 20 dernières opérations de diagnostic tous outils confondus, avec nom de l'outil, cible, date et indicateur de succès. Cet historique est persisté en base de données entre les sessions.</p>
+    <p>Le panneau inférieur affiché les 20 dernières opérations de diagnostic tous outils confondus, avec nom de l'outil, cible, date et indicateur de succès. Cet historique est persisté en base de données entre les sessions.</p>
     <div class="callout"><strong>Conseil :</strong> les outils <strong>Infos IP locales</strong> et <strong>Services actifs</strong> ciblent toujours la machine qui héberge NetDTL, pas un hôte distant. Ils sont utiles pour vérifier rapidement la configuration réseau du serveur ou ses services en cours d'exécution.</div>
   </div>
 
@@ -554,7 +554,7 @@ define('APP_VERSION',    '3.0');</code></pre>
   <div class="section-block" id="patch">
     <h3>Panneau de brassage</h3>
     <div class="desc">Consultation et filtrage du panneau de brassage physique — le mapping entre les prises murales (ex. B31), les ports switch et les machines qui y sont connectées. Cette page est en lecture seule ; les données sont alimentées par import externe.</div>
-    <div class="label">Filtres</div>
+    <div class="label">Filtrès</div>
     <table>
       <thead><tr><th>Filter</th><th>Description</th></tr></thead>
       <tbody>
@@ -575,7 +575,7 @@ define('APP_VERSION',    '3.0');</code></pre>
         <tr><td>Poste</td><td>Référence du bureau ou du poste</td></tr>
         <tr><td>Switch</td><td>Identifiant du switch (orange)</td></tr>
         <tr><td>Port switch</td><td>Port sur le switch (bleu)</td></tr>
-        <tr><td>IP(s) / Hostname(s)</td><td>Machines associées à cette prise. Plusieurs machines par port s'affichent séparées par des virgules.</td></tr>
+        <tr><td>IP(s) / Hostname(s)</td><td>Machines associées à cette prise. Plusieurs machines par port s'affichént séparées par des virgules.</td></tr>
         <tr><td>Notes</td><td>Notes libres</td></tr>
       </tbody>
     </table>
@@ -616,7 +616,7 @@ define('APP_VERSION',    '3.0');</code></pre>
     <li><strong>Les données du brassage nécessitent un import externe.</strong> La page panneau de brassage n'intègre pas d'outil d'import ; les données doivent être chargées via SQL ou le NetDTL Installer.</li>
     <li><strong>Compte utilisateur unique.</strong> Un seul jeu d'identifiants, pas de rôles, pas d'audit par utilisateur.</li>
     <li><strong>Limite de durée de scan.</strong> Le serveur impose une limite d'exécution de 10 minutes par scan. Pour les réseaux larges ou lents, scanner par blocs CIDR plus petits.</li>
-    <li><strong>Les hôtes down ne sont pas enregistrés.</strong> La découverte ne sauvegarde que les machines qui répondent. Les hôtes précédemment actifs et maintenant silencieux ne sont pas marqués down automatiquement ; utiliser <strong>Ping tout</strong> dans l'inventaire pour cela.</li>
+    <li><strong>Les hôtes down ne sont pas enregistrés.</strong> La découverte ne sauvegarde que les machines qui répondent. Les hôtes précédemment actifs et maintenant silencieux ne sont pas marqués down automatiquement ; utilisér <strong>Ping tout</strong> dans l'inventaire pour cela.</li>
   </ul>
 <p>&nbsp;</p>
 <a href="https://didiermorandi.com/netdtl/" target="_blank"><span style="color:yellow">NetDTL</span> Web site</a>
